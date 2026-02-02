@@ -27,7 +27,7 @@ body{
   to{transform:translateY(-110vh);}
 }
 
-/* Slide card layout */
+/* Slide animation */
 .slide{
   display:none;
   height:100vh;
@@ -35,22 +35,53 @@ body{
   justify-content:center;
   align-items:center;
   position:absolute;
+  animation:fade 0.8s ease;
+}
+@keyframes fade{
+  from{opacity:0; transform:translateY(30px);}
+  to{opacity:1; transform:translateY(0);}
 }
 .active{display:flex;}
 
+/* Card */
 .card{
-  background:#ffffffcc;
-  backdrop-filter:blur(10px);
-  width:85%;
-  max-width:900px;
-  padding:50px;
+  background:#ffffffd9;
+  backdrop-filter:blur(12px);
+  width:90%;
+  max-width:1000px;
+  padding:45px;
   border-radius:25px;
-  box-shadow:0 10px 40px rgba(0,0,0,0.15);
+  box-shadow:0 15px 50px rgba(0,0,0,0.18);
   text-align:center;
 }
 
-h1{font-size:2.7em;margin-bottom:20px;}
-p{font-size:1.3em;line-height:1.6;}
+h1{font-size:2.5em;margin-bottom:15px;}
+p{font-size:1.25em;line-height:1.6;}
+
+/* Image + text layout */
+.row{
+  display:flex;
+  gap:30px;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+/* Polaroid */
+.polaroid{
+  background:white;
+  padding:10px 10px 25px 10px;
+  border-radius:10px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.2);
+  transform:rotate(-2deg);
+}
+.polaroid img{
+  width:240px;
+  height:300px;
+  object-fit:cover;
+  border-radius:8px;
+}
 
 button{
   margin:15px;
@@ -68,9 +99,12 @@ button:hover{
   background:#caa6ff;
 }
 
-/* Next button higher */
-.nav{
-  margin-top:30px;
+.nav{ margin-top:30px; }
+
+#plea{
+  margin-top:15px;
+  color:#a64ca6;
+  font-weight:bold;
 }
 
 /* Confetti */
@@ -84,12 +118,6 @@ button:hover{
 @keyframes fall{
   to{transform:translateY(110vh) rotate(720deg);}
 }
-
-#plea{
-  margin-top:15px;
-  color:#a64ca6;
-  font-weight:bold;
-}
 </style>
 </head>
 <body>
@@ -98,7 +126,7 @@ button:hover{
   <source src="sahiba.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Slides -->
+<!-- Slide 1 -->
 <div class="slide active"><div class="card">
   <h1 id="t1"></h1>
   <p id="p1"></p>
@@ -106,29 +134,40 @@ button:hover{
   <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
 </div></div>
 
+<!-- Memory slides with images -->
 <div class="slide"><div class="card">
-  <h1 id="t2"></h1><p id="p2"></p>
-  <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
-</div></div>
-
-<!-- NEW SLIDES -->
-<div class="slide"><div class="card">
-  <h1 id="t2a"></h1><p id="p2a"></p>
-  <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
-</div></div>
-
-<div class="slide"><div class="card">
-  <h1 id="t2b"></h1><p id="p2b"></p>
+  <h1 id="t2"></h1>
+  <div class="row">
+    <div class="polaroid"><img src="img1.jpg"></div>
+    <p id="p2"></p>
+  </div>
   <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
 </div></div>
 
 <div class="slide"><div class="card">
-  <h1 id="t2c"></h1><p id="p2c"></p>
+  <h1 id="t2a"></h1>
+  <div class="row">
+    <p id="p2a"></p>
+    <div class="polaroid"><img src="img2.jpg"></div>
+  </div>
   <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
 </div></div>
 
 <div class="slide"><div class="card">
-  <h1 id="t3"></h1><p id="p3"></p>
+  <h1 id="t2b"></h1>
+  <div class="row">
+    <div class="polaroid"><img src="img3.jpg"></div>
+    <p id="p2b"></p>
+  </div>
+  <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
+</div></div>
+
+<div class="slide"><div class="card">
+  <h1 id="t2c"></h1>
+  <div class="row">
+    <p id="p2c"></p>
+    <div class="polaroid"><img src="img4.jpg"></div>
+  </div>
   <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
 </div></div>
 
@@ -141,13 +180,9 @@ button:hover{
   <div id="plea"></div>
 </div></div>
 
+<!-- Ending -->
 <div class="slide"><div class="card">
   <h1 id="t5"></h1><p id="p5"></p>
-  <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
-</div></div>
-
-<div class="slide"><div class="card">
-  <h1 id="t6"></h1><p id="p6"></p>
   <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
 </div></div>
 
@@ -165,27 +200,21 @@ function nextSlide(){
 }
 function startMusic(){document.getElementById("bgm").play();}
 
-/* Plead lines */
+/* Plead */
 let pleadLines=[
 "okasari alochinchu fr 🥺",
-"button pani cheyyatledu anukunta",
 "YES press chey vineetha 😭",
-"kaalluu nokkuthaa neevi",
 "queen la chuskunta ninnu",
 "plot twist: nuvvu already na wife",
-"rom-com rules say YES",
-"system error: No not allowed"
+"rom-com rules say YES"
 ];
-
 function nope(){
   let btn=document.getElementById("noBtn");
-  let plea=document.getElementById("plea");
-  plea.innerText=pleadLines[Math.floor(Math.random()*pleadLines.length)];
+  document.getElementById("plea").innerText=pleadLines[Math.floor(Math.random()*pleadLines.length)];
   btn.style.position="absolute";
   btn.style.top=Math.random()*80+"%";
   btn.style.left=Math.random()*80+"%";
 }
-
 function yes(){confettiBlast();setTimeout(nextSlide,1500);}
 
 /* Confetti */
@@ -195,7 +224,6 @@ function confettiBlast(){
     c.className="confetti";
     c.style.left=Math.random()*100+"vw";
     c.style.background=["#ffb3d9","#caa6ff","#fff"][Math.floor(Math.random()*3)];
-    c.style.animationDuration=(Math.random()*3+2)+"s";
     document.body.appendChild(c);
     setTimeout(()=>c.remove(),4000);
   }
@@ -214,9 +242,8 @@ setInterval(()=>{
 
 /* Typing */
 function type(id,text){
-  let i=0;
-  let el=document.getElementById(id);
-  function t(){ if(i<text.length){ el.innerHTML+=text[i++]; setTimeout(t,35);} }
+  let i=0,el=document.getElementById(id);
+  function t(){if(i<text.length){el.innerHTML+=text[i++];setTimeout(t,35);}}
   t();
 }
 
@@ -226,13 +253,10 @@ type("t2","Memory 1"); type("p2","...");
 type("t2a","Memory 2"); type("p2a","...");
 type("t2b","Memory 3"); type("p2b","...");
 type("t2c","Memory 4"); type("p2c","...");
-type("t3","More feels"); type("p3","...");
 type("t4","One important question..."); type("p4","Will you be my wife?");
 type("t5","She said YESSS 💍"); type("p5","Best moment of my life.");
-type("t6","Future Plans"); type("p6","...");
 type("t7","Credits"); type("p7","Made with love by your husband");
 </script>
 
 </body>
 </html>
-
