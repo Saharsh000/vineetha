@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>For My Sahiba 💗</title>
+<title>For My Vinnamma 💗</title>
 
 <style>
 body{
@@ -12,6 +12,20 @@ body{
   background: linear-gradient(135deg,#ffd6e8,#e6d6ff);
   overflow:hidden;
   color:#5a3d5c;
+}
+
+/* Floating hearts */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:20px;
+  animation:floatUp linear infinite;
+  opacity:0.7;
+}
+
+@keyframes floatUp{
+  from{ transform:translateY(0); }
+  to{ transform:translateY(-110vh); }
 }
 
 .slide{
@@ -23,7 +37,6 @@ body{
   flex-direction:column;
   text-align:center;
   padding:40px;
-  box-sizing:border-box;
   position:absolute;
 }
 
@@ -33,7 +46,7 @@ h1{ font-size:3em; margin-bottom:20px;}
 p{ font-size:1.4em; max-width:800px; }
 
 button{
-  margin-top:30px;
+  margin:15px;
   padding:12px 25px;
   font-size:1.1em;
   border:none;
@@ -55,8 +68,25 @@ button:hover{
   right:30px;
 }
 
-#noBtn{
-  position:relative;
+#plea{
+  margin-top:20px;
+  font-size:1.2em;
+  color:#a64ca6;
+}
+
+/* Confetti */
+.confetti{
+  position:fixed;
+  width:10px;
+  height:10px;
+  top:-10px;
+  animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(720deg);
+  }
 }
 </style>
 </head>
@@ -66,57 +96,54 @@ button:hover{
   <source src="sahiba.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Slide 1 -->
+<!-- Slides -->
 <div class="slide active">
   <h1 id="t1"></h1>
   <p id="p1"></p>
-  <button onclick="startMusic()">Turn on the vibes 🎵</button>
+  <button onclick="startMusic()">Music on cheyy🎵</button>
   <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
 </div>
 
-<!-- Slide 2 (edit text here) -->
 <div class="slide">
   <h1 id="t2"></h1>
   <p id="p2"></p>
   <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
 </div>
 
-<!-- Slide 3 (edit text here) -->
 <div class="slide">
   <h1 id="t3"></h1>
   <p id="p3"></p>
   <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
 </div>
 
-<!-- Proposal Slide -->
+<!-- Proposal -->
 <div class="slide">
   <h1 id="t4"></h1>
   <p id="p4"></p>
   <button onclick="yes()">Yes 💍</button>
-  <button id="noBtn" onmouseover="moveNo()">No 😼</button>
+  <button id="noBtn" onclick="nope()">No 😼</button>
+  <div id="plea"></div>
 </div>
 
-<!-- After Yes Slide -->
 <div class="slide">
   <h1 id="t5"></h1>
   <p id="p5"></p>
   <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
 </div>
 
-<!-- Extra Slide -->
 <div class="slide">
   <h1 id="t6"></h1>
   <p id="p6"></p>
   <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
 </div>
 
-<!-- Credits -->
 <div class="slide">
   <h1 id="t7"></h1>
   <p id="p7"></p>
 </div>
 
 <script>
+/* Slides */
 let slides = document.querySelectorAll('.slide');
 let current = 0;
 
@@ -130,18 +157,61 @@ function startMusic(){
   document.getElementById("bgm").play();
 }
 
-function yes(){
-  nextSlide();
-}
+/* Plead lines */
+let pleadLines = [
+"Are you really sure? 🥺",
+"okasari alochinchu fr",
+"this button poyindhi anukunta",
+"You meant YES right?",
+"Okay last chance bangaram😭",
+"Plot twist: you love me hehe",
+"Be nice vineethaaa just press Yes 😌",
+"kaalluu nokkuthaa neevi",
+"queen la chuskunta ninnu",
+];
 
-function moveNo(){
+function nope(){
   let btn = document.getElementById("noBtn");
+  let plea = document.getElementById("plea");
+  plea.innerText = pleadLines[Math.floor(Math.random()*pleadLines.length)];
   btn.style.position = "absolute";
   btn.style.top = Math.random()*80 + "%";
   btn.style.left = Math.random()*80 + "%";
 }
 
-/* -------- Typing Effect -------- */
+function yes(){
+  confettiBlast();
+  setTimeout(nextSlide,1500);
+}
+
+/* Confetti */
+function confettiBlast(){
+  for(let i=0;i<120;i++){
+    let conf = document.createElement("div");
+    conf.classList.add("confetti");
+    conf.style.left = Math.random()*100+"vw";
+    conf.style.background = ["#ffb3d9","#caa6ff","#ffffff","#ff69b4"][Math.floor(Math.random()*4)];
+    conf.style.animationDuration = (Math.random()*3+2)+"s";
+    document.body.appendChild(conf);
+    setTimeout(()=>conf.remove(),4000);
+  }
+}
+
+/* Floating hearts */
+function createHearts(){
+  setInterval(()=>{
+    let heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💗";
+    heart.style.left = Math.random()*100+"vw";
+    heart.style.animationDuration = (Math.random()*5+5)+"s";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),10000);
+  },500);
+}
+createHearts();
+
+/* Typing effect */
 function typeEffect(id, text, speed=40){
   let i=0;
   function type(){
@@ -154,9 +224,9 @@ function typeEffect(id, text, speed=40){
   type();
 }
 
-/* -------- EDIT YOUR TEXT HERE -------- */
-typeEffect("t1","Hi my Sahiba 💗");
-typeEffect("p1","I made something special for you...");
+/* EDIT YOUR TEXT HERE */
+typeEffect("t1","Hi Vineetha💗");
+typeEffect("p1","ni kosam okati chesa :)");
 
 typeEffect("t2","Slide Title 2");
 typeEffect("p2","Write whatever you want about her here...");
@@ -174,7 +244,7 @@ typeEffect("t6","Future Plans Together");
 typeEffect("p6","Dreams, travels, everything you imagine.");
 
 typeEffect("t7","Credits");
-typeEffect("p7","Made with love by [YOUR NAME]");
+typeEffect("p7","Made with love by your husband");
 </script>
 
 </body>
