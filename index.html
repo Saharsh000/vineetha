@@ -8,8 +8,8 @@
 <style>
 body{
   margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg,#ffd6e8,#e6d6ff);
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#ffd6e8,#e6d6ff);
   overflow:hidden;
   color:#5a3d5c;
 }
@@ -18,36 +18,43 @@ body{
 .heart{
   position:fixed;
   bottom:-20px;
-  font-size:20px;
+  font-size:18px;
   animation:floatUp linear infinite;
-  opacity:0.7;
+  opacity:0.6;
 }
-
 @keyframes floatUp{
-  from{ transform:translateY(0); }
-  to{ transform:translateY(-110vh); }
+  from{transform:translateY(0);}
+  to{transform:translateY(-110vh);}
 }
 
+/* Slide card layout */
 .slide{
   display:none;
   height:100vh;
   width:100vw;
   justify-content:center;
   align-items:center;
-  flex-direction:column;
-  text-align:center;
-  padding:40px;
   position:absolute;
 }
+.active{display:flex;}
 
-.active{ display:flex; }
+.card{
+  background:#ffffffcc;
+  backdrop-filter:blur(10px);
+  width:85%;
+  max-width:900px;
+  padding:50px;
+  border-radius:25px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.15);
+  text-align:center;
+}
 
-h1{ font-size:3em; margin-bottom:20px;}
-p{ font-size:1.4em; max-width:800px; }
+h1{font-size:2.7em;margin-bottom:20px;}
+p{font-size:1.3em;line-height:1.6;}
 
 button{
   margin:15px;
-  padding:12px 25px;
+  padding:12px 28px;
   font-size:1.1em;
   border:none;
   border-radius:25px;
@@ -56,22 +63,14 @@ button{
   color:#fff;
   transition:0.3s;
 }
-
 button:hover{
   transform:scale(1.1);
   background:#caa6ff;
 }
 
+/* Next button higher */
 .nav{
-  position:absolute;
-  bottom:30px;
-  right:30px;
-}
-
-#plea{
-  margin-top:20px;
-  font-size:1.2em;
-  color:#a64ca6;
+  margin-top:30px;
 }
 
 /* Confetti */
@@ -82,11 +81,14 @@ button:hover{
   top:-10px;
   animation:fall 3s linear forwards;
 }
-
 @keyframes fall{
-  to{
-    transform:translateY(110vh) rotate(720deg);
-  }
+  to{transform:translateY(110vh) rotate(720deg);}
+}
+
+#plea{
+  margin-top:15px;
+  color:#a64ca6;
+  font-weight:bold;
 }
 </style>
 </head>
@@ -97,155 +99,140 @@ button:hover{
 </audio>
 
 <!-- Slides -->
-<div class="slide active">
+<div class="slide active"><div class="card">
   <h1 id="t1"></h1>
   <p id="p1"></p>
-  <button onclick="startMusic()">Music on cheyy🎵</button>
+  <button onclick="startMusic()">Music on cheyy 🎵</button>
   <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
-</div>
+</div></div>
 
-<div class="slide">
-  <h1 id="t2"></h1>
-  <p id="p2"></p>
+<div class="slide"><div class="card">
+  <h1 id="t2"></h1><p id="p2"></p>
   <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
-</div>
+</div></div>
 
-<div class="slide">
-  <h1 id="t3"></h1>
-  <p id="p3"></p>
+<!-- NEW SLIDES -->
+<div class="slide"><div class="card">
+  <h1 id="t2a"></h1><p id="p2a"></p>
   <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
-</div>
+</div></div>
+
+<div class="slide"><div class="card">
+  <h1 id="t2b"></h1><p id="p2b"></p>
+  <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
+</div></div>
+
+<div class="slide"><div class="card">
+  <h1 id="t2c"></h1><p id="p2c"></p>
+  <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
+</div></div>
+
+<div class="slide"><div class="card">
+  <h1 id="t3"></h1><p id="p3"></p>
+  <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
+</div></div>
 
 <!-- Proposal -->
-<div class="slide">
+<div class="slide"><div class="card">
   <h1 id="t4"></h1>
   <p id="p4"></p>
   <button onclick="yes()">Yes 💍</button>
   <button id="noBtn" onclick="nope()">No 😼</button>
   <div id="plea"></div>
-</div>
+</div></div>
 
-<div class="slide">
-  <h1 id="t5"></h1>
-  <p id="p5"></p>
+<div class="slide"><div class="card">
+  <h1 id="t5"></h1><p id="p5"></p>
   <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
-</div>
+</div></div>
 
-<div class="slide">
-  <h1 id="t6"></h1>
-  <p id="p6"></p>
+<div class="slide"><div class="card">
+  <h1 id="t6"></h1><p id="p6"></p>
   <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
-</div>
+</div></div>
 
-<div class="slide">
-  <h1 id="t7"></h1>
-  <p id="p7"></p>
-</div>
+<div class="slide"><div class="card">
+  <h1 id="t7"></h1><p id="p7"></p>
+</div></div>
 
 <script>
-/* Slides */
-let slides = document.querySelectorAll('.slide');
-let current = 0;
-
+let slides=document.querySelectorAll('.slide');
+let current=0;
 function nextSlide(){
   slides[current].classList.remove('active');
   current++;
   slides[current].classList.add('active');
 }
-
-function startMusic(){
-  document.getElementById("bgm").play();
-}
+function startMusic(){document.getElementById("bgm").play();}
 
 /* Plead lines */
-let pleadLines = [
-"Are you really sure? 🥺",
-"okasari alochinchu fr",
-"this button poyindhi anukunta",
-"You meant YES right?",
-"Okay last chance bangaram😭",
-"Plot twist: you love me hehe",
-"Be nice vineethaaa just press Yes 😌",
+let pleadLines=[
+"okasari alochinchu fr 🥺",
+"button pani cheyyatledu anukunta",
+"YES press chey vineetha 😭",
 "kaalluu nokkuthaa neevi",
 "queen la chuskunta ninnu",
+"plot twist: nuvvu already na wife",
+"rom-com rules say YES",
+"system error: No not allowed"
 ];
 
 function nope(){
-  let btn = document.getElementById("noBtn");
-  let plea = document.getElementById("plea");
-  plea.innerText = pleadLines[Math.floor(Math.random()*pleadLines.length)];
-  btn.style.position = "absolute";
-  btn.style.top = Math.random()*80 + "%";
-  btn.style.left = Math.random()*80 + "%";
+  let btn=document.getElementById("noBtn");
+  let plea=document.getElementById("plea");
+  plea.innerText=pleadLines[Math.floor(Math.random()*pleadLines.length)];
+  btn.style.position="absolute";
+  btn.style.top=Math.random()*80+"%";
+  btn.style.left=Math.random()*80+"%";
 }
 
-function yes(){
-  confettiBlast();
-  setTimeout(nextSlide,1500);
-}
+function yes(){confettiBlast();setTimeout(nextSlide,1500);}
 
 /* Confetti */
 function confettiBlast(){
   for(let i=0;i<120;i++){
-    let conf = document.createElement("div");
-    conf.classList.add("confetti");
-    conf.style.left = Math.random()*100+"vw";
-    conf.style.background = ["#ffb3d9","#caa6ff","#ffffff","#ff69b4"][Math.floor(Math.random()*4)];
-    conf.style.animationDuration = (Math.random()*3+2)+"s";
-    document.body.appendChild(conf);
-    setTimeout(()=>conf.remove(),4000);
+    let c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=["#ffb3d9","#caa6ff","#fff"][Math.floor(Math.random()*3)];
+    c.style.animationDuration=(Math.random()*3+2)+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
   }
 }
 
-/* Floating hearts */
-function createHearts(){
-  setInterval(()=>{
-    let heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "💗";
-    heart.style.left = Math.random()*100+"vw";
-    heart.style.animationDuration = (Math.random()*5+5)+"s";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),10000);
-  },500);
-}
-createHearts();
+/* Hearts */
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💗";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(Math.random()*5+5)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),10000);
+},600);
 
-/* Typing effect */
-function typeEffect(id, text, speed=40){
+/* Typing */
+function type(id,text){
   let i=0;
-  function type(){
-    if(i < text.length){
-      document.getElementById(id).innerHTML += text.charAt(i);
-      i++;
-      setTimeout(type,speed);
-    }
-  }
-  type();
+  let el=document.getElementById(id);
+  function t(){ if(i<text.length){ el.innerHTML+=text[i++]; setTimeout(t,35);} }
+  t();
 }
 
-/* EDIT YOUR TEXT HERE */
-typeEffect("t1","Hi Vineetha💗");
-typeEffect("p1","ni kosam okati chesa :)");
-
-typeEffect("t2","Slide Title 2");
-typeEffect("p2","Write whatever you want about her here...");
-
-typeEffect("t3","Slide Title 3");
-typeEffect("p3","More cute memories, jokes, feelings...");
-
-typeEffect("t4","One important question...");
-typeEffect("p4","Will you be my wife?");
-
-typeEffect("t5","She said YESSS 💍");
-typeEffect("p5","Best moment of my life.");
-
-typeEffect("t6","Future Plans Together");
-typeEffect("p6","Dreams, travels, everything you imagine.");
-
-typeEffect("t7","Credits");
-typeEffect("p7","Made with love by your husband");
+/* EDIT TEXT */
+type("t1","Hi Vineetha 💗"); type("p1","ni kosam okati chesa :)");
+type("t2","Memory 1"); type("p2","...");
+type("t2a","Memory 2"); type("p2a","...");
+type("t2b","Memory 3"); type("p2b","...");
+type("t2c","Memory 4"); type("p2c","...");
+type("t3","More feels"); type("p3","...");
+type("t4","One important question..."); type("p4","Will you be my wife?");
+type("t5","She said YESSS 💍"); type("p5","Best moment of my life.");
+type("t6","Future Plans"); type("p6","...");
+type("t7","Credits"); type("p7","Made with love by your husband");
 </script>
 
 </body>
 </html>
+
