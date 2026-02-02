@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>For My Sahiba 💗</title>
+
+<style>
+body{
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#ffd6e8,#e6d6ff);
+  overflow:hidden;
+  color:#5a3d5c;
+}
+
+.slide{
+  display:none;
+  height:100vh;
+  width:100vw;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+  padding:40px;
+  box-sizing:border-box;
+  position:absolute;
+}
+
+.active{ display:flex; }
+
+h1{ font-size:3em; margin-bottom:20px;}
+p{ font-size:1.4em; max-width:800px; }
+
+button{
+  margin-top:30px;
+  padding:12px 25px;
+  font-size:1.1em;
+  border:none;
+  border-radius:25px;
+  cursor:pointer;
+  background:#ffb3d9;
+  color:#fff;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.1);
+  background:#caa6ff;
+}
+
+.nav{
+  position:absolute;
+  bottom:30px;
+  right:30px;
+}
+
+#noBtn{
+  position:relative;
+}
+</style>
+</head>
+<body>
+
+<audio id="bgm" loop>
+  <source src="sahiba.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Slide 1 -->
+<div class="slide active">
+  <h1 id="t1"></h1>
+  <p id="p1"></p>
+  <button onclick="startMusic()">Turn on the vibes 🎵</button>
+  <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
+</div>
+
+<!-- Slide 2 (edit text here) -->
+<div class="slide">
+  <h1 id="t2"></h1>
+  <p id="p2"></p>
+  <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
+</div>
+
+<!-- Slide 3 (edit text here) -->
+<div class="slide">
+  <h1 id="t3"></h1>
+  <p id="p3"></p>
+  <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
+</div>
+
+<!-- Proposal Slide -->
+<div class="slide">
+  <h1 id="t4"></h1>
+  <p id="p4"></p>
+  <button onclick="yes()">Yes 💍</button>
+  <button id="noBtn" onmouseover="moveNo()">No 😼</button>
+</div>
+
+<!-- After Yes Slide -->
+<div class="slide">
+  <h1 id="t5"></h1>
+  <p id="p5"></p>
+  <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
+</div>
+
+<!-- Extra Slide -->
+<div class="slide">
+  <h1 id="t6"></h1>
+  <p id="p6"></p>
+  <div class="nav"><button onclick="nextSlide()">Next ➜</button></div>
+</div>
+
+<!-- Credits -->
+<div class="slide">
+  <h1 id="t7"></h1>
+  <p id="p7"></p>
+</div>
+
+<script>
+let slides = document.querySelectorAll('.slide');
+let current = 0;
+
+function nextSlide(){
+  slides[current].classList.remove('active');
+  current++;
+  slides[current].classList.add('active');
+}
+
+function startMusic(){
+  document.getElementById("bgm").play();
+}
+
+function yes(){
+  nextSlide();
+}
+
+function moveNo(){
+  let btn = document.getElementById("noBtn");
+  btn.style.position = "absolute";
+  btn.style.top = Math.random()*80 + "%";
+  btn.style.left = Math.random()*80 + "%";
+}
+
+/* -------- Typing Effect -------- */
+function typeEffect(id, text, speed=40){
+  let i=0;
+  function type(){
+    if(i < text.length){
+      document.getElementById(id).innerHTML += text.charAt(i);
+      i++;
+      setTimeout(type,speed);
+    }
+  }
+  type();
+}
+
+/* -------- EDIT YOUR TEXT HERE -------- */
+typeEffect("t1","Hi my Sahiba 💗");
+typeEffect("p1","I made something special for you...");
+
+typeEffect("t2","Slide Title 2");
+typeEffect("p2","Write whatever you want about her here...");
+
+typeEffect("t3","Slide Title 3");
+typeEffect("p3","More cute memories, jokes, feelings...");
+
+typeEffect("t4","One important question...");
+typeEffect("p4","Will you be my wife?");
+
+typeEffect("t5","She said YESSS 💍");
+typeEffect("p5","Best moment of my life.");
+
+typeEffect("t6","Future Plans Together");
+typeEffect("p6","Dreams, travels, everything you imagine.");
+
+typeEffect("t7","Credits");
+typeEffect("p7","Made with love by [YOUR NAME]");
+</script>
+
+</body>
+</html>
