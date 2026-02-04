@@ -10,7 +10,8 @@ body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
   background:linear-gradient(135deg,#ffd6e8,#e6d6ff);
-  overflow:hidden;
+  overflow-x:hidden;
+  overflow-y:auto;
   color:#5a3d5c;
 }
 
@@ -27,15 +28,16 @@ body{
   to{transform:translateY(-110vh);}
 }
 
-/* Slide animation */
+/* Slides */
 .slide{
   display:none;
-  height:100vh;
-  width:100vw;
+  min-height:100vh;
+  width:100%;
   justify-content:center;
   align-items:center;
-  position:absolute;
+  position:relative;
   animation:fade 0.8s ease;
+  padding:30px 0;
 }
 @keyframes fade{
   from{opacity:0; transform:translateY(30px);}
@@ -47,7 +49,7 @@ body{
 .card{
   background:#ffffffd9;
   backdrop-filter:blur(12px);
-  width:90%;
+  width:92%;
   max-width:1000px;
   padding:45px;
   border-radius:25px;
@@ -58,7 +60,6 @@ body{
 h1{font-size:2.5em;margin-bottom:15px;}
 p{font-size:1.25em;line-height:1.6;}
 
-/* Image + text layout */
 .row{
   display:flex;
   gap:30px;
@@ -68,7 +69,6 @@ p{font-size:1.25em;line-height:1.6;}
   margin-top:15px;
 }
 
-/* Polaroid */
 .polaroid{
   background:white;
   padding:10px 10px 25px 10px;
@@ -118,6 +118,16 @@ button:hover{
 @keyframes fall{
   to{transform:translateY(110vh) rotate(720deg);}
 }
+
+/* 📱 Mobile Fix */
+@media (max-width:600px){
+  .card{ padding:22px; border-radius:18px; }
+  h1{font-size:1.6em;}
+  p{font-size:1em;}
+  .polaroid img{ width:170px; height:210px; }
+  button{ width:100%; font-size:1em; padding:12px; }
+  .nav{ margin-top:18px; }
+}
 </style>
 </head>
 <body>
@@ -126,7 +136,7 @@ button:hover{
   <source src="sahiba.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Slide 1 -->
+<!-- Slides -->
 <div class="slide active"><div class="card">
   <h1 id="t1"></h1>
   <p id="p1"></p>
@@ -134,7 +144,6 @@ button:hover{
   <div class="nav"><button onclick="nextSlide()">Next</button></div>
 </div></div>
 
-<!-- Memory slides with images -->
 <div class="slide"><div class="card">
   <h1 id="t2"></h1>
   <div class="row">
@@ -171,7 +180,6 @@ button:hover{
   <div class="nav"><button onclick="nextSlide()">Next</button></div>
 </div></div>
 
-<!-- Proposal -->
 <div class="slide"><div class="card">
   <h1 id="t4"></h1>
   <p id="p4"></p>
@@ -180,7 +188,6 @@ button:hover{
   <div id="plea"></div>
 </div></div>
 
-<!-- Ending -->
 <div class="slide"><div class="card">
   <h1 id="t5"></h1><p id="p5"></p>
   <div class="nav"><button onclick="nextSlide()">Next</button></div>
@@ -197,17 +204,17 @@ function nextSlide(){
   slides[current].classList.remove('active');
   current++;
   slides[current].classList.add('active');
+  window.scrollTo(0,0);
 }
 function startMusic(){document.getElementById("bgm").play();}
 
-/* Plead */
 let pleadLines=[
 "okasari alochinchu fr 🥺",
 "YES press chey vineetha 😭",
 "queen la chuskunta ninnu 😕",
 "plot twist: nuvvu already na wife 😏",
-  "button pani cheyatledhu ig 😂",
-  "bangaram pwez 🥺🥺"
+"button pani cheyatledhu ig 😂",
+"bangaram pwez 🥺🥺"
 ];
 function nope(){
   let btn=document.getElementById("noBtn");
@@ -218,7 +225,6 @@ function nope(){
 }
 function yes(){confettiBlast();setTimeout(nextSlide,1500);}
 
-/* Confetti */
 function confettiBlast(){
   for(let i=0;i<120;i++){
     let c=document.createElement("div");
@@ -230,7 +236,6 @@ function confettiBlast(){
   }
 }
 
-/* Hearts */
 setInterval(()=>{
   let h=document.createElement("div");
   h.className="heart";
@@ -241,23 +246,288 @@ setInterval(()=>{
   setTimeout(()=>h.remove(),10000);
 },600);
 
-/* Typing */
 function type(id,text){
   let i=0,el=document.getElementById(id);
   function t(){if(i<text.length){el.innerHTML+=text[i++];setTimeout(t,35);}}
   t();
 }
 
-/* EDIT TEXT */
+/* TEXT */
 type("t1","Hi Vineethaaa 💗"); type("p1","ni kosam okati chesa 🤓 firstuuu music button click chesi next nokku 😜");
 type("t2","Happy 3month Anniversary ❤️"); type("p2","Happy 3month anniversaryy bangarammmmmmm 💗💘😘❤️❤️ Appude 3 months aipoyayi lol.. We are getting so closer to our marriage fr 🙈😝");
 type("t2a","Confession"); type("p2a","It is INDEED true. I love youuu soooooooo much 😘❤️❤️❤️ I literally love you for infinityy, my dear Portia ❤️❤️💘 i just want to spend my whole life with youu 🥺");
 type("t2b","Letteruu"); type("p2b","Nuvvu appudu birthday ki raasavu kadhaaaa letteruuu.. i still read that whenever i miss you lol.... chala baa raasav letter, i get butterflies in stomach whenever i read ❤️❤️ i just like it sooo much 💘");
 type("t2c","Rubberbanduu"); type("p2c","appudeppudo nov27 na u gave ig... nearly 1 month rojuuuu pettukunna until i lost it 😭😭 chala feel ayyaanu appudu but yes new one ichavu gaa ❤️❤️ its almost always in my pocket and yes, intlo rojuuu me wear ts 💘❤️❤️ naku idhi chala nachindhi fr 😘. ok inka chala matladi but i have to chadavali 😭");
 type("t4","Oka question adagali ninnu..."); type("p4","Will you be my wifey? 🥺🥺");
-type("t5","YESSSSSSS LET'S GOOOOOOO 😭😭❤️❤️❤️❤️"); type("p5","Appudu nuvvu nannu accept chesinappudu i was the happiest man on Earth fr 😭😭❤️❤️❤️❤️💘 and appuudu nuvvu malli when u came back kuda ❤️❤️. i wanted to cry fr🥹🥹 anyways i just know we will last forever vineethaaa, im not leaving u at any cost... btw, happy valentine's day in advance vinnamma ❤️❤️💘💘💗 ");
-type("t7","Thanks you"); type("p7","Made with lots of love by your husband 😏😘❤️❤️❤️ feb 2nd i did this btw 😂 ok, i hope u liked it lol. antha neat ga cheyale but once boards are over, appudu chala classy ga, pedda ga chestha hehe okieee byeeeee i love you so much bangaramm 😘❤️❤️❤️💘💗");
+type("t5","YESSSSSSS LET'S GOOOOOOO 😭😭❤️❤️❤️❤️"); type("p5","Appudu nuvvu nannu accept chesinappudu i was the happiest man on Earth fr 😭😭❤️❤️❤️❤️💘 and appuudu nuvvu malli when u came back kuda ❤️❤️. i wanted to cry fr🥹🥹 anyways i just know we will last forever vineethaaa...");
+type("t7","Thank you"); type("p7","Made with lots of love by your husband 😏😘❤️❤️❤️");
 </script>
 
 </body>
-</html>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>For My Vinnamma 💗</title>
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#ffd6e8,#e6d6ff);
+  overflow-x:hidden;
+  overflow-y:auto;
+  color:#5a3d5c;
+}
+
+/* Floating hearts */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:18px;
+  animation:floatUp linear infinite;
+  opacity:0.6;
+}
+@keyframes floatUp{
+  from{transform:translateY(0);}
+  to{transform:translateY(-110vh);}
+}
+
+/* Slides */
+.slide{
+  display:none;
+  min-height:100vh;
+  width:100%;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+  animation:fade 0.8s ease;
+  padding:30px 0;
+}
+@keyframes fade{
+  from{opacity:0; transform:translateY(30px);}
+  to{opacity:1; transform:translateY(0);}
+}
+.active{display:flex;}
+
+/* Card */
+.card{
+  background:#ffffffd9;
+  backdrop-filter:blur(12px);
+  width:92%;
+  max-width:1000px;
+  padding:45px;
+  border-radius:25px;
+  box-shadow:0 15px 50px rgba(0,0,0,0.18);
+  text-align:center;
+}
+
+h1{font-size:2.5em;margin-bottom:15px;}
+p{font-size:1.25em;line-height:1.6;}
+
+.row{
+  display:flex;
+  gap:30px;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+.polaroid{
+  background:white;
+  padding:10px 10px 25px 10px;
+  border-radius:10px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.2);
+  transform:rotate(-2deg);
+}
+.polaroid img{
+  width:240px;
+  height:300px;
+  object-fit:cover;
+  border-radius:8px;
+}
+
+button{
+  margin:15px;
+  padding:12px 28px;
+  font-size:1.1em;
+  border:none;
+  border-radius:25px;
+  cursor:pointer;
+  background:#ffb3d9;
+  color:#fff;
+  transition:0.3s;
+}
+button:hover{
+  transform:scale(1.1);
+  background:#caa6ff;
+}
+
+.nav{ margin-top:30px; }
+
+#plea{
+  margin-top:15px;
+  color:#a64ca6;
+  font-weight:bold;
+}
+
+/* Confetti */
+.confetti{
+  position:fixed;
+  width:10px;
+  height:10px;
+  top:-10px;
+  animation:fall 3s linear forwards;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(720deg);}
+}
+
+/* 📱 Mobile Fix */
+@media (max-width:600px){
+  .card{ padding:22px; border-radius:18px; }
+  h1{font-size:1.6em;}
+  p{font-size:1em;}
+  .polaroid img{ width:170px; height:210px; }
+  button{ width:100%; font-size:1em; padding:12px; }
+  .nav{ margin-top:18px; }
+}
+</style>
+</head>
+<body>
+
+<audio id="bgm" loop>
+  <source src="sahiba.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Slides -->
+<div class="slide active"><div class="card">
+  <h1 id="t1"></h1>
+  <p id="p1"></p>
+  <button onclick="startMusic()">Music on cheyy 🎵</button>
+  <div class="nav"><button onclick="nextSlide()">Next</button></div>
+</div></div>
+
+<div class="slide"><div class="card">
+  <h1 id="t2"></h1>
+  <div class="row">
+    <div class="polaroid"><img src="img1.jpg"></div>
+    <p id="p2"></p>
+  </div>
+  <div class="nav"><button onclick="nextSlide()">Next</button></div>
+</div></div>
+
+<div class="slide"><div class="card">
+  <h1 id="t2a"></h1>
+  <div class="row">
+    <p id="p2a"></p>
+    <div class="polaroid"><img src="img2.jpg"></div>
+  </div>
+  <div class="nav"><button onclick="nextSlide()">Next</button></div>
+</div></div>
+
+<div class="slide"><div class="card">
+  <h1 id="t2b"></h1>
+  <div class="row">
+    <div class="polaroid"><img src="img3.jpg"></div>
+    <p id="p2b"></p>
+  </div>
+  <div class="nav"><button onclick="nextSlide()">Next</button></div>
+</div></div>
+
+<div class="slide"><div class="card">
+  <h1 id="t2c"></h1>
+  <div class="row">
+    <p id="p2c"></p>
+    <div class="polaroid"><img src="img4.jpg"></div>
+  </div>
+  <div class="nav"><button onclick="nextSlide()">Next</button></div>
+</div></div>
+
+<div class="slide"><div class="card">
+  <h1 id="t4"></h1>
+  <p id="p4"></p>
+  <button onclick="yes()">Yes 🥰</button>
+  <button id="noBtn" onclick="nope()">No 🙄</button>
+  <div id="plea"></div>
+</div></div>
+
+<div class="slide"><div class="card">
+  <h1 id="t5"></h1><p id="p5"></p>
+  <div class="nav"><button onclick="nextSlide()">Next</button></div>
+</div></div>
+
+<div class="slide"><div class="card">
+  <h1 id="t7"></h1><p id="p7"></p>
+</div></div>
+
+<script>
+let slides=document.querySelectorAll('.slide');
+let current=0;
+function nextSlide(){
+  slides[current].classList.remove('active');
+  current++;
+  slides[current].classList.add('active');
+  window.scrollTo(0,0);
+}
+function startMusic(){document.getElementById("bgm").play();}
+
+let pleadLines=[
+"okasari alochinchu fr 🥺",
+"YES press chey vineetha 😭",
+"queen la chuskunta ninnu 😕",
+"plot twist: nuvvu already na wife 😏",
+"button pani cheyatledhu ig 😂",
+"bangaram pwez 🥺🥺"
+];
+function nope(){
+  let btn=document.getElementById("noBtn");
+  document.getElementById("plea").innerText=pleadLines[Math.floor(Math.random()*pleadLines.length)];
+  btn.style.position="absolute";
+  btn.style.top=Math.random()*80+"%";
+  btn.style.left=Math.random()*80+"%";
+}
+function yes(){confettiBlast();setTimeout(nextSlide,1500);}
+
+function confettiBlast(){
+  for(let i=0;i<120;i++){
+    let c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=["#ffb3d9","#caa6ff","#fff"][Math.floor(Math.random()*3)];
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
+  }
+}
+
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(Math.random()*5+5)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),10000);
+},600);
+
+function type(id,text){
+  let i=0,el=document.getElementById(id);
+  function t(){if(i<text.length){el.innerHTML+=text[i++];setTimeout(t,35);}}
+  t();
+}
+
+/* TEXT */
+type("t1","Hi Vineethaaa 💗"); type("p1","ni kosam okati chesa 🤓 firstuuu music button click chesi next nokku 😜");
+type("t2","Happy 3month Anniversary ❤️"); type("p2","Happy 3month anniversaryy bangarammmmmmm 💗💘😘❤️❤️ Appude 3 months aipoyayi lol.. We are getting so closer to our marriage fr 🙈😝");
+type("t2a","Confession"); type("p2a","It is INDEED true. I love youuu soooooooo much 😘❤️❤️❤️ I literally love you for infinityy, my dear Portia ❤️❤️💘 i just want to spend my whole life with youu 🥺");
+type("t2b","Letteruu"); type("p2b","Nuvvu appudu birthday ki raasavu kadhaaaa letteruuu.. i still read that whenever i miss you lol.... chala baa raasav letter, i get butterflies in stomach whenever i read ❤️❤️ i just like it sooo much 💘");
+type("t2c","Rubberbanduu"); type("p2c","appudeppudo nov27 na u gave ig... nearly 1 month rojuuuu pettukunna until i lost it 😭😭 chala feel ayyaanu appudu but yes new one ichavu gaa ❤️❤️ its almost always in my pocket and yes, intlo rojuuu me wear ts 💘❤️❤️ naku idhi chala nachindhi fr 😘. ok inka chala matladi but i have to chadavali 😭");
+type("t4","Oka question adagali ninnu..."); type("p4","Will you be my wifey? 🥺🥺");
+type("t5","YESSSSSSS LET'S GOOOOOOO 😭😭❤️❤️❤️❤️"); type("p5","Appudu nuvvu nannu accept chesinappudu i was the happiest man on Earth fr 😭😭❤️❤️❤️❤️💘 and appuudu nuvvu malli when u came back kuda ❤️❤️. i wanted to cry fr🥹🥹 anyways i just know we will last forever vineethaaa...");
+type("t7","Thank you"); type("p7","Made with lots of love by your husband 😏😘❤️❤️❤️");
+</script>
+
+</body>
+  </html>
