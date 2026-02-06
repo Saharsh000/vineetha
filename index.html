@@ -6,13 +6,21 @@
 <title>For My Vinnamma 💗</title>
 
 <style>
+/* 🌈 Animated background */
 body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
-  background:linear-gradient(135deg,#ffd6e8,#e6d6ff);
+  background:linear-gradient(-45deg,#ffd6e8,#e6d6ff,#ffe4cc,#d6f0ff);
+  background-size:400% 400%;
+  animation:bgMove 18s ease infinite;
   overflow-x:hidden;
   overflow-y:auto;
   color:#5a3d5c;
+}
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
 /* Floating hearts */
@@ -21,7 +29,8 @@ body{
   bottom:-20px;
   font-size:18px;
   animation:floatUp linear infinite;
-  opacity:0.6;
+  opacity:0.5;
+  pointer-events:none;
 }
 @keyframes floatUp{
   from{transform:translateY(0);}
@@ -40,21 +49,26 @@ body{
   padding:30px 0;
 }
 @keyframes fade{
-  from{opacity:0; transform:translateY(30px);}
+  from{opacity:0; transform:translateY(25px);}
   to{opacity:1; transform:translateY(0);}
 }
 .active{display:flex;}
 
-/* Card */
+/* Card with soft breathing glow */
 .card{
-  background:#ffffffd9;
+  background:#ffffffdd;
   backdrop-filter:blur(12px);
   width:92%;
   max-width:1000px;
   padding:45px;
   border-radius:25px;
-  box-shadow:0 15px 50px rgba(0,0,0,0.18);
   text-align:center;
+  box-shadow:0 15px 40px rgba(255,182,193,0.4);
+  animation:glow 4s ease-in-out infinite;
+}
+@keyframes glow{
+  0%,100%{box-shadow:0 15px 40px rgba(255,182,193,0.4);}
+  50%{box-shadow:0 20px 55px rgba(202,166,255,0.6);}
 }
 
 h1{font-size:2.5em;margin-bottom:15px;}
@@ -69,14 +83,14 @@ button{
   cursor:pointer;
   background:#ffb3d9;
   color:#fff;
-  transition:0.3s;
+  transition:0.25s;
 }
 button:hover{
-  transform:scale(1.1);
+  transform:scale(1.08);
   background:#caa6ff;
 }
 
-.nav{ margin-top:30px; }
+.nav{margin-top:30px;}
 
 #plea{
   margin-top:15px;
@@ -84,28 +98,41 @@ button:hover{
   font-weight:bold;
 }
 
-/* Confetti */
-.confetti{
-  position:fixed;
-  width:10px;
-  height:10px;
-  top:-10px;
-  animation:fall 3s linear forwards;
+/* ❤️ Heartbeat for proposal */
+.proposal h1{
+  animation:heartbeat 1.6s infinite;
 }
-@keyframes fall{
-  to{transform:translateY(110vh) rotate(720deg);}
+@keyframes heartbeat{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.05);}
 }
 
-/* Mobile */
-@media (max-width:600px){
-  .card{ padding:22px; border-radius:18px; }
+/* 🎉 Confetti FIXED */
+.confetti{
+  position:fixed;
+  top:-10px;
+  width:8px;
+  height:14px;
+  opacity:0.8;
+  animation:confFall linear forwards;
+  pointer-events:none;
+}
+@keyframes confFall{
+  to{
+    transform:translateY(110vh) rotate(720deg);
+  }
+}
+
+/* 📱 Mobile */
+@media(max-width:600px){
+  .card{padding:22px;border-radius:18px;}
   h1{font-size:1.6em;}
   p{font-size:1em;}
-  button{ width:100%; font-size:1em; padding:12px; }
-  .nav{ margin-top:18px; }
+  button{width:100%;font-size:1em;}
 }
 </style>
 </head>
+
 <body>
 
 <audio id="bgm" loop>
@@ -121,38 +148,26 @@ button:hover{
 </div></div>
 
 <div class="slide"><div class="card">
-  <h1 id="t2"></h1>
-  <p id="p2"></p>
+  <h1 id="t2"></h1><p id="p2"></p>
   <div class="nav"><button onclick="nextSlide()">Next</button></div>
 </div></div>
 
 <div class="slide"><div class="card">
-  <h1 id="t2a"></h1>
-  <p id="p2a"></p>
+  <h1 id="t2a"></h1><p id="p2a"></p>
   <div class="nav"><button onclick="nextSlide()">Next</button></div>
 </div></div>
 
 <div class="slide"><div class="card">
-  <h1 id="t2b"></h1>
-  <p id="p2b"></p>
+  <h1 id="t2b"></h1><p id="p2b"></p>
   <div class="nav"><button onclick="nextSlide()">Next</button></div>
 </div></div>
 
 <div class="slide"><div class="card">
-  <h1 id="t2c"></h1>
-  <p id="p2c"></p>
+  <h1 id="t2c"></h1><p id="p2c"></p>
   <div class="nav"><button onclick="nextSlide()">Next</button></div>
 </div></div>
 
-<!-- 🆕 NEW SLIDE (EMPTY CONTENT – YOU FILL) -->
-<div class="slide"><div class="card">
-  <h1 id="t2d"></h1>
-  <p id="p2d"></p>
-  <div class="nav"><button onclick="nextSlide()">Next</button></div>
-</div></div>
-
-<!-- Proposal -->
-<div class="slide"><div class="card">
+<div class="slide"><div class="card proposal">
   <h1 id="t4"></h1>
   <p id="p4"></p>
   <button onclick="yes()">Yes 🥰</button>
@@ -161,14 +176,12 @@ button:hover{
 </div></div>
 
 <div class="slide"><div class="card">
-  <h1 id="t5"></h1>
-  <p id="p5"></p>
+  <h1 id="t5"></h1><p id="p5"></p>
   <div class="nav"><button onclick="nextSlide()">Next</button></div>
 </div></div>
 
 <div class="slide"><div class="card">
-  <h1 id="t7"></h1>
-  <p id="p7"></p>
+  <h1 id="t7"></h1><p id="p7"></p>
 </div></div>
 
 <script>
@@ -182,76 +195,75 @@ function nextSlide(){
 }
 function startMusic(){document.getElementById("bgm").play();}
 
+/* Plead */
 let pleadLines=[
 "okasari alochinchu fr 🥺",
 "YES press chey vineetha 😭",
 "queen la chuskunta ninnu 😕",
 "plot twist: nuvvu already na wife 😏",
-"button pani cheyatledhu ig 😂",
 "bangaram pwez 🥺🥺"
 ];
 function nope(){
   let btn=document.getElementById("noBtn");
-  document.getElementById("plea").innerText=pleadLines[Math.floor(Math.random()*pleadLines.length)];
+  document.getElementById("plea").innerText=
+    pleadLines[Math.floor(Math.random()*pleadLines.length)];
   btn.style.position="absolute";
   btn.style.top=Math.random()*80+"%";
   btn.style.left=Math.random()*80+"%";
 }
-function yes(){confettiBlast();setTimeout(nextSlide,1500);}
 
-function confettiBlast(){
-  for(let i=0;i<120;i++){
-    let c=document.createElement("div");
-    c.className="confetti";
-    c.style.left=Math.random()*100+"vw";
-    c.style.background=["#ffb3d9","#caa6ff","#fff"][Math.floor(Math.random()*3)];
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),4000);
+/* 🎉 Fixed confetti */
+function yes(){
+  for(let i=0;i<60;i++){
+    setTimeout(()=>{
+      let c=document.createElement("div");
+      c.className="confetti";
+      c.style.left=Math.random()*100+"vw";
+      c.style.background=["#ffb3d9","#caa6ff","#ffd966","#aee6ff"]
+        [Math.floor(Math.random()*4)];
+      c.style.animationDuration=(Math.random()*2+2)+"s";
+      c.style.width=(Math.random()*6+6)+"px";
+      c.style.height=(Math.random()*10+10)+"px";
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(),4000);
+    },i*40);
   }
+  setTimeout(nextSlide,1600);
 }
 
+/* Hearts */
 setInterval(()=>{
   let h=document.createElement("div");
   h.className="heart";
   h.innerHTML="❤️";
   h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=(Math.random()*5+5)+"s";
+  h.style.animationDuration=(Math.random()*5+6)+"s";
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),10000);
-},600);
+  setTimeout(()=>h.remove(),12000);
+},700);
 
+/* Typing */
 function type(id,text){
   let i=0,el=document.getElementById(id);
   function t(){if(i<text.length){el.innerHTML+=text[i++];setTimeout(t,35);}}
   t();
 }
 
-/* YOUR ORIGINAL TEXT – UNTOUCHED */
+/* YOUR TEXT – UNTOUCHED */
 type("t1","Hi Vineethaaa 💗"); 
 type("p1","ni kosam okati chesa 🤓 firstuuu music button click chesi next nokku 😜");
-
 type("t2","Happy 3month Anniversary ❤️"); 
 type("p2","Happy 3month anniversaryy bangarammmmmmm 💗💘😘❤️❤️ Appude 3 months aipoyayi lol.. We are getting so closer to our marriage fr 🙈😝");
-
 type("t2a","Confession"); 
 type("p2a","It is INDEED true. I love youuu soooooooo much 😘❤️❤️❤️ I literally love you for infinityy, my dear Portia ❤️❤️💘 i just want to spend my whole life with youu 🥺");
-
 type("t2b","Letteruu"); 
 type("p2b","Nuvvu appudu birthday ki raasavu kadhaaaa letteruuu.. i still read that whenever i miss you lol.... chala baa raasav letter, i get butterflies in stomach whenever i read ❤️❤️ i just like it sooo much 💘");
-
 type("t2c","Rubberbanduu"); 
 type("p2c","appudeppudo nov27 na u gave ig... nearly 1 month rojuuuu pettukunna until i lost it 😭😭 chala feel ayyaanu appudu but yes new one ichavu gaa ❤️❤️ its almost always in my pocket and yes, intlo rojuuu me wear ts 💘❤️❤️ naku idhi chala nachindhi fr 😘. ok inka chala matladi but i have to chadavali 😭");
-
-/* NEW SLIDE – YOU DECIDE TEXT */
-type("t2d",""); 
-type("p2d","");
-
 type("t4","Oka question adagali ninnu..."); 
 type("p4","Will you be my wifey? 🥺🥺");
-
 type("t5","YESSSSSSS LET'S GOOOOOOO 😭😭❤️❤️❤️❤️"); 
 type("p5","Appudu nuvvu nannu accept chesinappudu i was the happiest man on Earth fr 😭😭❤️❤️❤️❤️💘 and appuudu nuvvu malli when u came back kuda ❤️❤️. i wanted to cry fr🥹🥹 anyways i just know we will last forever vineethaaa...");
-
 type("t7","Thank you"); 
 type("p7","Made with lots of love by your husband 😏😘❤️❤️❤️");
 </script>
